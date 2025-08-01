@@ -1,0 +1,20 @@
+.actions button {
+  margin-right: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: black;
+  cursor: pointer;
+  transition: 
+    background-color 0.2s ease, 
+    box-shadow 0.2s ease, 
+    transform 0.1s ease;
+}
+
+.actions button:hover {
+  background-color: #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+

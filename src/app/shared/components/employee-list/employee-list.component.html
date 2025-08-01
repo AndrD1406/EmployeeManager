@@ -1,0 +1,43 @@
+<div class="search-sort">
+  <input
+    type="text"
+    [formControl]="searchControl"
+    placeholder="Search by name or email"
+  />
+
+  <div class="sort-buttons">
+    <button (click)="onSort('fullName')">
+      Name {{ sortField==='fullName' ? (sortDirection==='asc'?'▲':'▼') : '' }}
+    </button>
+    <button (click)="onSort('startDate')">
+      Start Date {{ sortField==='startDate' ? (sortDirection==='asc'?'▲':'▼') : '' }}
+    </button>
+    <button (click)="onSort('skillCount')">
+      # Skills {{ sortField==='skillCount' ? (sortDirection==='asc'?'▲':'▼') : '' }}
+    </button>
+  </div>
+</div>
+
+<div class="table-wrapper">
+    <table class="employee-table">
+    <thead>
+        <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Position</th>
+        <th>Start Date</th>
+        <th># Skills</th>
+        <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr
+        *ngFor="let emp of filteredAndSorted$ | async"
+        app-employee-card
+        [employee]="emp"
+        (edit)="onEdit(emp)"
+        (delete)="onDelete(emp.id)"
+        ></tr>
+    </tbody>
+    </table>
+</div>

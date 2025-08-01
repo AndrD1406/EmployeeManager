@@ -1,0 +1,16 @@
+<div class="backdrop" (click)="close()"></div>
+
+<div class="modal">
+    <header class="modal-header">
+        <ng-content select="[modal-title]"></ng-content>
+        <button class="close-btn" (click)="close()">×</button>
+    </header>
+
+    <section class="modal-body">
+        <ng-content select="[modal-body]"></ng-content>
+    </section>
+
+    <footer class="modal-footer">
+        <ng-content select="[modal-footer]"></ng-content>
+    </footer>
+</div>

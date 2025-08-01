@@ -1,0 +1,9 @@
+<td>{{ employee.fullName }}</td>
+<td>{{ employee.email }}</td>
+<td>{{ employee.position }}</td>
+<td>{{ employee.startDate | date:'shortDate' }}</td>
+<td>{{ employee.skills.length }}</td>
+<td class="actions">
+    <button (click)="onEdit()">Edit</button>
+    <button (click)="onDelete()">Delete</button>
+</td>

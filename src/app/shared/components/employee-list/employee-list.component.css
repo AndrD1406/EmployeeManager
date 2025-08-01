@@ -1,0 +1,68 @@
+.search-sort {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.search-sort input {
+  flex: 1 1 200px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.sort-buttons button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.sort-buttons button:hover {
+  background: #d5d5d5;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.employee-table th,
+.employee-table td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.employee-table th {
+  background-color: #f7f7f7;
+}
+
+@media (max-width: 480px) {
+  .search-sort {
+    flex-direction: column;
+  }
+
+  .sort-buttons {
+    width: 100%;
+  }
+
+  .sort-buttons button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .employee-table th,
+  .employee-table td {
+    padding: 0.5rem;
+  }
+}
