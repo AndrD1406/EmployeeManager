@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { combineLatest, debounceTime, distinctUntilChanged, map, startWith } from 'rxjs';
+import { BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, map, startWith } from 'rxjs';
 import { EmployeeCardComponent } from '../employee-card/employee-card.component';
 import { EmployeeService } from '../../services/employee.service';
 import { Employee } from '../../models/employee.model';
+
+type SortField = 'fullName'|'startDate'|'skillCount';
+type SortDir   = 'asc'|'desc';
 
 @Component({
     selector: 'app-employee-list',
@@ -14,8 +17,18 @@ import { Employee } from '../../models/employee.model';
 })
 export class EmployeeListComponent {
     searchControl = new FormControl('');
-    sortField: 'fullName' | 'startDate' | 'skillCount' = 'fullName';
-    sortDirection: 'asc' | 'desc' = 'asc';
+    
+    private sortField$     = new BehaviorSubject<SortField>('fullName');
+    private sortDirection$ = new BehaviorSubject<SortDir>('asc');
+
+    get sortField(): SortField {
+        return this.sortField$.value;
+    }
+
+    get sortDirection(): SortDir {
+        return this.sortDirection$.value;
+    }
+
 
     filteredAndSorted$ :any;
 
@@ -23,31 +36,35 @@ export class EmployeeListComponent {
 
     ngOnInit() {
         this.filteredAndSorted$ = combineLatest([
-        this.searchControl.valueChanges.pipe(
+            this.searchControl.valueChanges.pipe(
             startWith(''),
             debounceTime(300),
             distinctUntilChanged(),
-            map(term => term?.toLowerCase() ?? '')
-        ),
-        this.employeeService.employees$
+            map(term => (term||'').toLowerCase())
+            ),
+            this.employeeService.employees$,
+            this.sortField$,
+            this.sortDirection$
         ]).pipe(
-        map(([term, emps]) =>
+            map(([term, emps, field, dir]) =>
             emps
-            .filter(e =>
+                .filter(e =>
                 e.fullName.toLowerCase().includes(term) ||
                 e.email.toLowerCase().includes(term)
+                )
+                .sort((a, b) => this.compare(a, b, field, dir))
             )
-            .sort((a, b) => this.compare(a, b))
-        )
         );
     }
 
-    onSort(field: 'fullName' | 'startDate' | 'skillCount') {
-        if (this.sortField = field) {
-            this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    onSort(field: SortField) {
+        if (this.sortField$.value === field) {
+        this.sortDirection$.next(
+            this.sortDirection$.value === 'asc' ? 'desc' : 'asc'
+        );
         } else {
-            this.sortField = field;
-            this.sortDirection = 'asc';
+        this.sortField$.next(field);
+        this.sortDirection$.next('asc');
         }
     }
 
@@ -59,21 +76,29 @@ export class EmployeeListComponent {
         this.employeeService.delete(id);
     }
 
-    private compare(a: Employee, b: Employee): number {
+    private compare( a: Employee, b: Employee, field: SortField, dir: SortDir): number {
         let aVal: any, bVal: any;
-        switch(this.sortField){
-            case 'fullName':
-                aVal = a.fullName.toLowerCase();
-                bVal = b.fullName.toLowerCase();
-                return this.sortDirection === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
-            case 'startDate':
-                aVal = a.startDate.getTime();
-                bVal = b.startDate.getTime();
-                return this.sortDirection === 'asc' ? aVal - bVal: bVal - aVal;
-            case 'skillCount':
-                aVal = a.skills.length;
-                bVal = b.skills.length;
-                return this.sortDirection === 'asc' ? aVal - bVal: bVal - aVal;
+        switch (field) {
+        case 'fullName':
+            aVal = a.fullName.toLowerCase();
+            bVal = b.fullName.toLowerCase();
+            return dir === 'asc'
+            ? aVal.localeCompare(bVal)
+            : bVal.localeCompare(aVal);
+
+        case 'startDate':
+            aVal = a.startDate.getTime();
+            bVal = b.startDate.getTime();
+            return dir === 'asc'
+            ? aVal - bVal
+            : bVal - aVal;
+
+        case 'skillCount':
+            aVal = a.skills.length;
+            bVal = b.skills.length;
+            return dir === 'asc'
+            ? aVal - bVal
+            : bVal - aVal;
         }
     }
 }

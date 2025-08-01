@@ -51,11 +51,6 @@ body {
   background: var(--row-alt);
 }
 
-.employee-table tr:hover {
-  background: var(--primary-light);
-  color: var(--surface);
-  transition: background 0.2s;
-}
 
 
 .actions button {
