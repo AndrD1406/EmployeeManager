@@ -2,58 +2,70 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
 
-## Development server
+## Prerequisites
 
-To start a local development server, run:
+- Node.js (v16+)
+- npm (comes with Node.js)
 
-```bash
-ng serve
-```
+## Setup & Development
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+1. Install dependencies  
+   `npm install`
 
-## Code scaffolding
+2. Run the dev server  
+   `ng serve`
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+3. Open in browser  
+   Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-```bash
-ng generate component component-name
-```
+## Project Structure & Implementation Notes
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- **EmployeeListComponent**  
+  - Hosts the search/filter inputs, sort buttons, and a Toggle View button.  
+  - Maintains a `cardView: boolean` flag to switch between table and card layouts.  
+  - Uses RxJS operators (`debounceTime`, `distinctUntilChanged`, `combineLatest`) to drive a single `filteredAndSorted$` stream.
 
-```bash
-ng generate --help
-```
+- **EmployeeCardComponent**  
+  - Selector: `tr[app-employee-card]`  
+  - Renders a table-row (`<td>…</td>`) for each employee with Edit/Delete buttons.
 
-## Building
+- **GridEmployeeCardComponent**  
+  - Selector: `app-grid-employee-card`  
+  - Renders a styled CSS-Grid card (3-per-row) showing Name, Email, Position, Start Date, Skill Count, plus Details/Edit/Delete actions.
 
-To build the project run:
+- **EmployeeFormComponent**  
+  - Reactive form for Add/Edit.  
+  - Fields: Full Name (min 3 chars), Email, Position (dropdown), Start Date (date picker), Skills (nested FormArray).  
+  - Validation: required, minlength, email format.  
+  - Skill rows must have non-empty names (min 3 chars) and you can add up to 10 skills.  
+  - Emits `saved` (payload without id) and `cancel` events.
 
-```bash
-ng build
-```
+- **EmployeeDetailsComponent**  
+  - Shows full details and a bullet list of all skills in a modal.  
+  - Triggered by the “Details” link in the grid view.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- **Modals**  
+  - `<app-modal>` wraps both the form (EmployeeFormComponent) and the details view (EmployeeDetailsComponent).
 
-## Running unit tests
+- **Styling**  
+  - Table view: classic `<table>` with flex-based action buttons that auto-stretch.  
+  - Card view: CSS Grid (`grid-template-columns: repeat(3,1fr)`) with responsive breakpoints at 900px and 600px.  
+  - Cards feature subtle shadow, hover-lift, and “Details” links styled as text.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- **Data**  
+  - EmployeeService holds a local array seeded with sample employees (including a few U.S. Presidents).  
+  - Provides `employees$` as a BehaviorSubject stream and methods for add, update, and delete.
 
-```bash
-ng test
-```
+## Further Commands
 
-## Running end-to-end tests
+- **Generate a new component**  
+  `ng generate component component-name`
 
-For end-to-end (e2e) testing, run:
+- **Build for production**  
+  `ng build`
 
-```bash
-ng e2e
-```
+- **Run unit tests**  
+  `ng test`
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **Run e2e tests**  
+  `ng e2e`
