@@ -7,17 +7,20 @@ import { EmployeeService } from '../../services/employee.service';
 import { Employee } from '../../models/employee.model';
 import { ModalComponent } from '../modal/modal.component';
 import { EmployeeFormComponent } from '../employee-form/employee-form.component';
+import { GridEmployeeCardComponentComponent } from '../grid-employee-card-component/grid-employee-card-component.component';
 
 type SortField = 'fullName'|'startDate'|'skillCount';
 type SortDir   = 'asc'|'desc';
 
 @Component({
     selector: 'app-employee-list',
-    imports: [CommonModule, ReactiveFormsModule, EmployeeCardComponent, ModalComponent, EmployeeFormComponent],
+    imports: [CommonModule, ReactiveFormsModule, EmployeeCardComponent, ModalComponent, EmployeeFormComponent, GridEmployeeCardComponentComponent],
     templateUrl: './employee-list.component.html',
     styleUrl: './employee-list.component.css'
 })
 export class EmployeeListComponent {
+    cardView = false;
+
     showFormModal = false;
     editingEmployee?: Employee;
 

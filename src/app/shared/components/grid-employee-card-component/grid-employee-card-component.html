@@ -1,0 +1,18 @@
+<div class="card">
+    <div class="card-header">
+        <h3>{{ employee.fullName }}</h3>
+        <a class="details-link" (click)="onEdit()">Details</a>
+    </div>
+    <div class="card-body">
+        <p>{{ employee.email }}</p>
+        <p>{{ employee.position }}</p>
+    </div>
+    <div class="card-meta">
+        <span>Started: {{ employee.startDate | date:'shortDate' }}</span>
+        <span>Skills: {{ employee.skills.length }}</span>
+    </div>
+    <div class="card-actions">
+        <button class="btn-primary" (click)="onEdit()">Edit</button>
+        <button class="btn-danger"  (click)="onDelete()">Delete</button>
+    </div>
+</div>

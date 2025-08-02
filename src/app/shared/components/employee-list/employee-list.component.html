@@ -1,6 +1,9 @@
 <div class="search-sort">
     <button class="btn" (click)="onAdd()">Add Employee</button>
 
+    <button class="btn" (click)="cardView = !cardView">
+        {{ cardView ? 'Switch to Table View' : 'Switch to Card View' }}
+    </button>
     <input
         type="text"
         [formControl]="searchNameControl"
@@ -25,7 +28,7 @@
     </div>
 </div>
 
-<div class="table-wrapper">
+<div *ngIf="!cardView" class="table-wrapper">
     <table class="employee-table">
     <thead>
         <tr>
@@ -47,6 +50,15 @@
         ></tr>
     </tbody>
     </table>
+</div>
+
+<div *ngIf="cardView" class="card-container">
+  <app-grid-employee-card
+    *ngFor="let emp of filteredAndSorted$ | async"
+    [employee]="emp"
+    (edit)="onEdit(emp)"
+    (delete)="onDelete(emp.id)"
+  ></app-grid-employee-card>
 </div>
 
 <app-modal *ngIf="showFormModal" (closed)="onModalClose()">
