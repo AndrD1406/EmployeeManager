@@ -45,7 +45,7 @@ export class EmployeeService{
                 id: 3,
                 fullName: 'George Washington',
                 email: 'george.washington@example.com',
-                position: 'President',
+                position: 'Manager',
                 startDate: new Date('1789-04-30'),
                 skills: [
                 { skill: 'Leadership', yearExperience: 8 },
@@ -56,7 +56,7 @@ export class EmployeeService{
                 id: 4,
                 fullName: 'Abraham Lincoln',
                 email: 'abraham.lincoln@example.com',
-                position: 'President',
+                position: 'Manager',
                 startDate: new Date('1861-03-04'),
                 skills: [
                 { skill: 'Emancipation', yearExperience: 4 },
@@ -67,7 +67,7 @@ export class EmployeeService{
                 id: 5,
                 fullName: 'Theodore Roosevelt',
                 email: 'theodore.roosevelt@example.com',
-                position: 'President',
+                position: 'Manager',
                 startDate: new Date('1901-09-14'),
                 skills: [
                 { skill: 'Conservation', yearExperience: 7 },
@@ -78,7 +78,7 @@ export class EmployeeService{
                 id: 6,
                 fullName: 'Franklin D. Roosevelt',
                 email: 'franklin.roosevelt@example.com',
-                position: 'President',
+                position: 'Manager',
                 startDate: new Date('1933-03-04'),
                 skills: [
                 { skill: 'Economic Recovery', yearExperience: 12 },
@@ -89,7 +89,7 @@ export class EmployeeService{
                 id: 7,
                 fullName: 'John F. Kennedy',
                 email: 'john.kennedy@example.com',
-                position: 'President',
+                position: 'Manager',
                 startDate: new Date('1961-01-20'),
                 skills: [
                 { skill: 'Diplomacy', yearExperience: 3 },
@@ -100,7 +100,7 @@ export class EmployeeService{
                 id: 8,
                 fullName: 'Barack Obama',
                 email: 'barack.obama@example.com',
-                position: 'President',
+                position: 'Manager',
                 startDate: new Date('2009-01-20'),
                 skills: [
                 { skill: 'Healthcare Reform', yearExperience: 8 },

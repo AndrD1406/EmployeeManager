@@ -8,6 +8,12 @@
     z-index: 1000;
 }
 
+.close-btn{
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    margin-left: auto;
+}
+
 .modal {
     position: fixed;
     top: 50%;
@@ -30,7 +36,10 @@
     border-bottom: 1px solid #e0e0e0;
     font-size: 1.25rem;
     font-weight: 600;
+    display: flex;
+    justify-content: space-between;
 }
+
 
 .modal-body {
     padding: 1rem;

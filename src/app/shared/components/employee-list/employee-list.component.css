@@ -51,6 +51,15 @@
   text-align: left;
 }
 
+
+.employee-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.employee-table tbody tr:hover {
+  background-color: rgba(25, 118, 210, 0.05);
+}
+
 .employee-table th {
   background-color: #f7f7f7;
 }
