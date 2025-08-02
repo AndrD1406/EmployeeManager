@@ -19,28 +19,94 @@ export class EmployeeService{
             }));
         } else {
             emps = [
-                {
+            {
                 id: 1,
                 fullName: 'John Doe',
                 email: 'john.doe@example.com',
                 position: 'Developer',
                 startDate: new Date('2023-01-15'),
                 skills: [
-                    { skill: 'Angular', yearExperience: 2 },
-                    { skill: 'TypeScript', yearExperience: 3 }
+                { skill: 'Angular', yearExperience: 2 },
+                { skill: 'TypeScript', yearExperience: 3 }
                 ]
-                },
-                {
+            },
+            {
                 id: 2,
                 fullName: 'Jane Smith',
                 email: 'jane.smith@example.com',
                 position: 'Designer',
                 startDate: new Date('2022-06-20'),
                 skills: [
-                    { skill: 'CSS', yearExperience: 4 },
-                    { skill: 'HTML', yearExperience: 5 }
+                { skill: 'CSS', yearExperience: 4 },
+                { skill: 'HTML', yearExperience: 5 }
                 ]
-                }
+            },
+            {
+                id: 3,
+                fullName: 'George Washington',
+                email: 'george.washington@example.com',
+                position: 'President',
+                startDate: new Date('1789-04-30'),
+                skills: [
+                { skill: 'Leadership', yearExperience: 8 },
+                { skill: 'Military Strategy', yearExperience: 8 }
+                ]
+            },
+            {
+                id: 4,
+                fullName: 'Abraham Lincoln',
+                email: 'abraham.lincoln@example.com',
+                position: 'President',
+                startDate: new Date('1861-03-04'),
+                skills: [
+                { skill: 'Emancipation', yearExperience: 4 },
+                { skill: 'Oratory', yearExperience: 4 }
+                ]
+            },
+            {
+                id: 5,
+                fullName: 'Theodore Roosevelt',
+                email: 'theodore.roosevelt@example.com',
+                position: 'President',
+                startDate: new Date('1901-09-14'),
+                skills: [
+                { skill: 'Conservation', yearExperience: 7 },
+                { skill: 'Progressivism', yearExperience: 7 }
+                ]
+            },
+            {
+                id: 6,
+                fullName: 'Franklin D. Roosevelt',
+                email: 'franklin.roosevelt@example.com',
+                position: 'President',
+                startDate: new Date('1933-03-04'),
+                skills: [
+                { skill: 'Economic Recovery', yearExperience: 12 },
+                { skill: 'Public Speaking', yearExperience: 12 }
+                ]
+            },
+            {
+                id: 7,
+                fullName: 'John F. Kennedy',
+                email: 'john.kennedy@example.com',
+                position: 'President',
+                startDate: new Date('1961-01-20'),
+                skills: [
+                { skill: 'Diplomacy', yearExperience: 3 },
+                { skill: 'Inspiration', yearExperience: 3 }
+                ]
+            },
+            {
+                id: 8,
+                fullName: 'Barack Obama',
+                email: 'barack.obama@example.com',
+                position: 'President',
+                startDate: new Date('2009-01-20'),
+                skills: [
+                { skill: 'Healthcare Reform', yearExperience: 8 },
+                { skill: 'Community Organizing', yearExperience: 8 }
+                ]
+            }
             ];
             localStorage.setItem(this.storageKey, JSON.stringify(emps));
             }

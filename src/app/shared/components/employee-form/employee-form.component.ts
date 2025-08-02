@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { EmployeeService } from '../../services/employee.service';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Employee } from '../../models/employee.model';
 import { Skill } from '../../models/skill.model';
 import { CommonModule } from '@angular/common';
@@ -29,21 +29,45 @@ export class EmployeeFormComponent {
 
     constructor(private fb: FormBuilder) {}
 
+    private skillNameValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const name = control.value.skill?.trim() ?? '';
+            if (!name) {
+                return { skillNameRequired: true };
+            }
+            if (name.length < 3) {
+                return { skillNameTooShort: { requiredLength: 3, actualLength: name.length } };
+            }
+            return null;
+        };
+    }
+
     private buildForm() {
         this.form = this.fb.group({
-        fullName:  [ this._employee?.fullName  ?? '', [Validators.required, Validators.minLength(3)]],
-        email:     [ this._employee?.email     ?? '', [Validators.required, Validators.email] ],
-        position:  [ this._employee?.position  ?? '', Validators.required ],
-        startDate: [ this._employee
-                        ? this._employee.startDate.toISOString().slice(0,10)
-                        : '', Validators.required ],
-        skills: this.fb.array<FormControl<Skill>>(
-            (this._employee?.skills ?? [{ skill: '', yearExperience: 0 }])
-                .map(s =>
-                this.fb.control<Skill>(
-                    s,
-                    { validators: Validators.required, nonNullable: true }
-                )))
+            fullName:  [ this._employee?.fullName  ?? '', [Validators.required, Validators.minLength(3)]],
+            email:     [ this._employee?.email     ?? '', [Validators.required, Validators.email] ],
+            position:  [ this._employee?.position  ?? '', Validators.required ],
+            startDate: [ this._employee
+                            ? this._employee.startDate.toISOString().slice(0,10)
+                            : '', Validators.required ],
+            skills: this.fb.array<FormControl<Skill>>(
+                (this._employee?.skills ?? [{ skill: '', yearExperience: 0 }])
+                    .map(s =>
+                        this.fb.control<Skill>(
+                            s,
+                            {
+                                validators: [
+                                    Validators.required,
+                                    this.skillNameValidator()
+                                ],
+                                nonNullable: true
+                            }
+                        )
+                    ),
+                {
+                    validators: [Validators.maxLength(10)]
+                }
+            )
         });
     }
 

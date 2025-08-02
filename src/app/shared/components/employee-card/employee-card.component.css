@@ -1,6 +1,6 @@
 .actions button {
-  margin-right: 0.5rem;
-  padding: 0.25rem 0.5rem;
+  flex: 1;
+  padding: 0.25rem 0;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #fff;
@@ -10,6 +10,7 @@
     background-color 0.2s ease, 
     box-shadow 0.2s ease, 
     transform 0.1s ease;
+  text-align: center;
 }
 
 .actions button:hover {
@@ -18,3 +19,7 @@
   transform: translateY(-1px);
 }
 
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}

@@ -39,14 +39,35 @@
     </div>
 
     <div formArrayName="skills">
-        <label>Skills</label>
-        <ng-container *ngFor="let ctrl of skillControls; let i = index">
-            <app-skill-row [formControl]="ctrl">
-            <button type="button" (click)="removeSkill(i)">Remove</button>
-            </app-skill-row>
-        </ng-container>
-        <button type="button" (click)="addSkill()">Add Skill</button>
+    <label>Skills</label>
+    <ng-container *ngFor="let ctrl of skillControls; let i = index">
+    <div class="skill-row-wrapper" [formControlName]="i">
+        <app-skill-row [formControl]="ctrl">
+        <button type="button" (click)="removeSkill(i)" class="btn-secondary">Remove</button>
+        </app-skill-row>
     </div>
+    <div *ngIf="ctrl.errors && (ctrl.touched || form.touched)">
+        <small *ngIf="ctrl.errors['skillNameRequired']">Skill name is required.</small>
+        <small *ngIf="ctrl.errors['skillNameTooShort']">
+        Min 3 characters
+        </small>
+    </div>
+    </ng-container>
+    <button
+    type="button"
+    (click)="addSkill()"
+    [disabled]="skills.length >= 10"
+    class="btn-primary"
+    >
+    Add Skill
+    </button>
+    <div *ngIf="skills.errors?.['maxlength']">
+    <small>You can add up to 10 skills.</small>
+    </div>
+</div>
 
-    <button type="submit">Save Employee</button>
+<div class="form-actions">
+    <button type="button" (click)="onCancel()" class="btn-secondary">Cancel</button>
+    <button type="submit" class="btn-primary">Save Employee</button>
+</div>
 </form>
