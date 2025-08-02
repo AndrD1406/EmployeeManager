@@ -1,27 +1,28 @@
-<button (click)="onAdd()">Add Employee</button>
 <div class="search-sort">
-  <input
-    type="text"
-    [formControl]="searchNameControl"
-    placeholder="Search by name"
-  />
-  <input
-    type="text"
-    [formControl]="searchEmailControl"
-    placeholder="Search by email"
-  />
+    <button class="btn" (click)="onAdd()">Add Employee</button>
 
-  <div class="sort-buttons">
-    <button (click)="onSort('fullName')">
-      Name {{ sortField==='fullName' ? (sortDirection==='asc'?'▲':'▼') : '' }}
-    </button>
-    <button (click)="onSort('startDate')">
-      Start Date {{ sortField==='startDate' ? (sortDirection==='asc'?'▲':'▼') : '' }}
-    </button>
-    <button (click)="onSort('skillCount')">
-      # Skills {{ sortField==='skillCount' ? (sortDirection==='asc'?'▲':'▼') : '' }}
-    </button>
-  </div>
+    <input
+        type="text"
+        [formControl]="searchNameControl"
+        placeholder="Search by name"
+    />
+    <input
+        type="text"
+        [formControl]="searchEmailControl"
+        placeholder="Search by email"
+    />
+
+    <div class="sort-buttons">
+        <button class="btn" (click)="onSort('fullName')">
+        Name {{ sortField==='fullName' ? (sortDirection==='asc'?'▲':'▼') : '' }}
+        </button>
+        <button class="btn" (click)="onSort('startDate')">
+        Start Date {{ sortField==='startDate' ? (sortDirection==='asc'?'▲':'▼') : '' }}
+        </button>
+        <button class="btn" (click)="onSort('skillCount')">
+        # Skills {{ sortField==='skillCount' ? (sortDirection==='asc'?'▲':'▼') : '' }}
+        </button>
+    </div>
 </div>
 
 <div class="table-wrapper">

@@ -57,9 +57,10 @@ export class EmployeeService{
     }
 
     add(emp: Omit<Employee, 'id'>): void {
-        const newEmp: Employee = { id: this.nextId++, ...emp }
+        const newEmp: Employee = { id: this.nextId++, ...emp };
         const list = [...this.emps$.value, newEmp];
         this.emps$.next(list);
+        this.persist(list);
     }
 
     update(emp: Employee): void {

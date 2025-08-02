@@ -13,17 +13,25 @@
   border-radius: 4px;
 }
 
-.sort-buttons button {
-  margin-right: 0.5rem;
-  padding: 0.5rem 1rem;
+.btn {
+  padding: 0.6rem 1.2rem;
+  min-width: 120px;
   border: none;
-  background: #e0e0e0;
+  background-color: #e0e0e0;
+  color: black;
   border-radius: 4px;
   cursor: pointer;
+  text-align: center;
+  transition: background-color 0.2s ease;
 }
 
-.sort-buttons button:hover {
-  background: #d5d5d5;
+.btn:hover {
+  background-color: #d5d5d5;
+}
+
+.sort-buttons {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .table-wrapper {
@@ -56,7 +64,7 @@
     width: 100%;
   }
 
-  .sort-buttons button {
+  .btn {
     width: 100%;
     margin-bottom: 0.5rem;
   }
