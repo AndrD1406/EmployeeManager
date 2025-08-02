@@ -1,0 +1,21 @@
+<div class="skill-row">
+    <input
+        type="text"
+        [value]="skill"
+        [disabled]="disabled"
+        (input)="onSkillInput($any($event.target).value)"
+        (blur)="propagateTouched()"
+        placeholder="Skill"
+        required
+    />
+    <input
+        type="number"
+        [value]="yearExperience"
+        [disabled]="disabled"
+        (input)="onYearsInput($any($event.target).value)"
+        (blur)="propagateTouched()"
+        min="0"
+        required
+    />
+    <ng-content></ng-content>
+</div>

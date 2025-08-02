@@ -5,18 +5,24 @@ import { BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, map
 import { EmployeeCardComponent } from '../employee-card/employee-card.component';
 import { EmployeeService } from '../../services/employee.service';
 import { Employee } from '../../models/employee.model';
+import { ModalComponent } from '../modal/modal.component';
+import { EmployeeFormComponent } from '../employee-form/employee-form.component';
 
 type SortField = 'fullName'|'startDate'|'skillCount';
 type SortDir   = 'asc'|'desc';
 
 @Component({
     selector: 'app-employee-list',
-    imports: [CommonModule, ReactiveFormsModule, EmployeeCardComponent],
+    imports: [CommonModule, ReactiveFormsModule, EmployeeCardComponent, ModalComponent, EmployeeFormComponent],
     templateUrl: './employee-list.component.html',
     styleUrl: './employee-list.component.css'
 })
 export class EmployeeListComponent {
-    searchControl = new FormControl('');
+    showFormModal = false;
+    editingEmployee?: Employee;
+
+    searchNameControl  = new FormControl('');
+    searchEmailControl = new FormControl('');
     
     private sortField$     = new BehaviorSubject<SortField>('fullName');
     private sortDirection$ = new BehaviorSubject<SortDir>('asc');
@@ -36,21 +42,28 @@ export class EmployeeListComponent {
 
     ngOnInit() {
         this.filteredAndSorted$ = combineLatest([
-            this.searchControl.valueChanges.pipe(
+            this.searchNameControl.valueChanges.pipe(
             startWith(''),
             debounceTime(300),
             distinctUntilChanged(),
-            map(term => (term||'').toLowerCase())
+            map(term => term?.toLowerCase() ?? '')
+            ),
+            this.searchEmailControl.valueChanges.pipe(
+            startWith(''),
+            debounceTime(300),
+            distinctUntilChanged(),
+            map(term => term?.toLowerCase() ?? '')
             ),
             this.employeeService.employees$,
             this.sortField$,
             this.sortDirection$
         ]).pipe(
-            map(([term, emps, field, dir]) =>
+            map(([nameTerm, emailTerm, emps, field, dir]) =>
             emps
                 .filter(e =>
-                e.fullName.toLowerCase().includes(term) ||
-                e.email.toLowerCase().includes(term)
+                ( !nameTerm  || e.fullName.toLowerCase().includes(nameTerm) )
+                &&
+                ( !emailTerm || e.email.toLowerCase().includes(emailTerm) )
                 )
                 .sort((a, b) => this.compare(a, b, field, dir))
             )
@@ -68,8 +81,30 @@ export class EmployeeListComponent {
         }
     }
 
-    onEdit(employee: Employee) {
-        //
+    onEdit(emp: Employee) {
+        this.editingEmployee = emp;
+        this.showFormModal   = true;
+    }
+
+    onAdd() {
+        this.editingEmployee = undefined;
+        this.showFormModal   = true;
+    }
+
+    onModalClose() {
+        this.showFormModal = false;
+    }
+
+    onSave(payload: Omit<Employee,'id'>) {
+        if (this.editingEmployee) {
+            this.employeeService.update({
+            id: this.editingEmployee.id,
+            ...payload
+            });
+        } else {
+            this.employeeService.add(payload);
+        }
+        this.showFormModal = false;
     }
 
     onDelete(id: number) {

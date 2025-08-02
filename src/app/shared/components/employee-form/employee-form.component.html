@@ -1,1 +1,52 @@
-<p>employee-form works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+        <label>Full Name</label>
+        <input formControlName="fullName" />
+        <div *ngIf="fullName.invalid && fullName.touched">
+        <small *ngIf="fullName.errors?.['required']">Required</small>
+        <small *ngIf="fullName.errors?.['minlength']">Min 3 characters</small>
+        </div>
+    </div>
+
+    <div>
+        <label>Email</label>
+        <input formControlName="email" />
+        <div *ngIf="email.invalid && email.touched">
+        <small *ngIf="email.errors?.['required']">Required</small>
+        <small *ngIf="email.errors?.['email']">Invalid email</small>
+        </div>
+    </div>
+
+    <div>
+        <label>Position</label>
+        <select formControlName="position">
+        <option value="" disabled>Select...</option>
+        <option *ngFor="let pos of ['Developer','Designer','QA','Manager']" [value]="pos">
+            {{ pos }}
+        </option>
+        </select>
+        <div *ngIf="position.invalid && position.touched">
+        <small *ngIf="position.errors?.['required']">Required</small>
+        </div>
+    </div>
+
+    <div>
+        <label>Start Date</label>
+        <input type="date" formControlName="startDate" />
+        <div *ngIf="startDate.invalid && startDate.touched">
+        <small *ngIf="startDate.errors?.['required']">Required</small>
+        </div>
+    </div>
+
+    <div formArrayName="skills">
+        <label>Skills</label>
+        <ng-container *ngFor="let ctrl of skillControls; let i = index">
+            <app-skill-row [formControl]="ctrl">
+            <button type="button" (click)="removeSkill(i)">Remove</button>
+            </app-skill-row>
+        </ng-container>
+        <button type="button" (click)="addSkill()">Add Skill</button>
+    </div>
+
+    <button type="submit">Save Employee</button>
+</form>

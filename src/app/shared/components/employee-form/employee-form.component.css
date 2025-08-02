@@ -1,0 +1,26 @@
+form > div {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+small {
+    color: #d32f2f;
+}
+
+.skill-row-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

@@ -1,8 +1,14 @@
+<button (click)="onAdd()">Add Employee</button>
 <div class="search-sort">
   <input
     type="text"
-    [formControl]="searchControl"
-    placeholder="Search by name or email"
+    [formControl]="searchNameControl"
+    placeholder="Search by name"
+  />
+  <input
+    type="text"
+    [formControl]="searchEmailControl"
+    placeholder="Search by email"
   />
 
   <div class="sort-buttons">
@@ -41,3 +47,16 @@
     </tbody>
     </table>
 </div>
+
+<app-modal *ngIf="showFormModal" (closed)="onModalClose()">
+    <h2 modal-title>
+        {{ editingEmployee ? 'Edit Employee' : 'Add Employee' }}
+    </h2>
+    
+    <app-employee-form
+        modal-body
+        [employee]="editingEmployee"
+        (saved)="onSave($event)"
+        (cancel)="onModalClose()"
+    ></app-employee-form>
+</app-modal>
