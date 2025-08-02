@@ -8,18 +8,24 @@ import { Employee } from '../../models/employee.model';
 import { ModalComponent } from '../modal/modal.component';
 import { EmployeeFormComponent } from '../employee-form/employee-form.component';
 import { GridEmployeeCardComponentComponent } from '../grid-employee-card-component/grid-employee-card-component.component';
+import { EmployeeDetailsComponent } from '../employee-details/employee-details.component';
 
 type SortField = 'fullName'|'startDate'|'skillCount';
 type SortDir   = 'asc'|'desc';
 
 @Component({
     selector: 'app-employee-list',
-    imports: [CommonModule, ReactiveFormsModule, EmployeeCardComponent, ModalComponent, EmployeeFormComponent, GridEmployeeCardComponentComponent],
+    imports: [CommonModule, ReactiveFormsModule, EmployeeCardComponent, ModalComponent,
+    EmployeeFormComponent, GridEmployeeCardComponentComponent,
+    EmployeeDetailsComponent],
     templateUrl: './employee-list.component.html',
     styleUrl: './employee-list.component.css'
 })
 export class EmployeeListComponent {
     cardView = false;
+
+    showDetailsModal = false;
+    detailsEmployee?: Employee;
 
     showFormModal = false;
     editingEmployee?: Employee;
@@ -38,6 +44,14 @@ export class EmployeeListComponent {
         return this.sortDirection$.value;
     }
 
+    onDetails(emp: Employee) {
+        this.detailsEmployee = emp;
+        this.showDetailsModal = true;
+    }
+
+    onDetailsClose() {
+        this.showDetailsModal = false;
+    }
 
     filteredAndSorted$ :any;
 

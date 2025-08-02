@@ -47,6 +47,7 @@
         [employee]="emp"
         (edit)="onEdit(emp)"
         (delete)="onDelete(emp.id)"
+        (details)="onDetails(emp)"
         ></tr>
     </tbody>
     </table>
@@ -58,6 +59,7 @@
     [employee]="emp"
     (edit)="onEdit(emp)"
     (delete)="onDelete(emp.id)"
+    (details)="onDetails(emp)"
   ></app-grid-employee-card>
 </div>
 
@@ -72,4 +74,12 @@
         (saved)="onSave($event)"
         (cancel)="onModalClose()"
     ></app-employee-form>
+</app-modal>
+
+<app-modal *ngIf="showDetailsModal" (closed)="onDetailsClose()">
+  <app-employee-details
+    [employee]="detailsEmployee!"
+    (close)="onDetailsClose()"
+    modal-body>
+  </app-employee-details>
 </app-modal>

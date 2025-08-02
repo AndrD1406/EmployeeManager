@@ -12,6 +12,7 @@ export class GridEmployeeCardComponentComponent {
     @Input() employee!: Employee;
     @Output() edit = new EventEmitter<Employee>();
     @Output() delete = new EventEmitter<number>();
+    @Output() details = new EventEmitter<Employee>();
 
     onEdit(): void {
         this.edit.emit(this.employee);
@@ -19,5 +20,9 @@ export class GridEmployeeCardComponentComponent {
 
     onDelete(): void {
         this.delete.emit(this.employee.id);
+    }
+
+    onDetails(): void {
+        this.details.emit(this.employee);
     }
 }

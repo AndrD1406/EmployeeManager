@@ -1,0 +1,36 @@
+.details-card {
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 400px;
+  width: 100%;
+}
+
+.close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.details-card h2 {
+  margin-top: 0;
+}
+
+.details-card h3 {
+  margin-bottom: 0.5rem;
+}
+
+.details-card ul {
+  list-style: disc inside;
+  padding: 0;
+  margin: 0;
+}
+
+.details-card li {
+  margin: 0.25rem 0;
+}

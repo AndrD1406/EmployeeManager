@@ -1,0 +1,14 @@
+<div class="details-card">
+  <button class="close" (click)="close.emit()">✕</button>
+  <h2>{{ employee.fullName }}</h2>
+  <p><strong>Email:</strong> {{ employee.email }}</p>
+  <p><strong>Position:</strong> {{ employee.position }}</p>
+  <p><strong>Start Date:</strong> {{ employee.startDate | date:'mediumDate' }}</p>
+
+  <h3>Skills</h3>
+  <ul>
+    <li *ngFor="let s of employee.skills">
+      {{ s.skill }} — {{ s.yearExperience }} yr{{ s.yearExperience>1?'s':'' }}
+    </li>
+  </ul>
+</div>
